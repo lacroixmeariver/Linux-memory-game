@@ -15,9 +15,9 @@ int main(){
     testGame.initGame();
     //testGame.printGameList();
     
-    testGame.deleteSpec();
+    //testGame.deleteSpec();
     //cout << "*******************" << endl; 
-    testGame.printGameList();
+    //testGame.printGameList();
     
     
     return 0; 

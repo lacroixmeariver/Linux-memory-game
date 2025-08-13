@@ -22,6 +22,47 @@ private:
     Node* listHead; 
     int size; 
 
+    // abstraction, baby!
+
+    Node* insertAtBackHelper(T newData)
+    {
+        Node* nodeToAdd = new Node(newData);
+        if (!isListEmpty())
+        {
+            listHead = nodeToAdd;
+            size++; 
+            return listHead; 
+        }
+        
+        Node* tempNodePtr = listHead;  
+        while(tempNodePtr->ptrNext)
+        {
+            tempNodePtr = tempNodePtr->ptrNext; 
+            // after this tempNodePtr should be the last node in the list 
+        }        
+        
+        tempNodePtr->ptrNext = nodeToAdd; // connecting the next pointer
+        nodeToAdd->ptrPrev = tempNodePtr; // connecting the previous pointer
+        size++; 
+        return nodeToAdd; 
+    }
+
+    Node* insertAtFrontHelper(T newData)
+    {
+        Node* nodeToAdd = new Node(newData);
+        if (!isListEmpty())
+        {
+            listHead = nodeToAdd;
+            size++;
+            return listHead; 
+        }
+        nodeToAdd->ptrNext = listHead; 
+        listHead = nodeToAdd; 
+        size++;
+        return nodeToAdd; 
+    }
+
+
 public:
     LinkedList()
     {
@@ -56,43 +97,16 @@ public:
         return listHead; 
     }
 
-    Node* insertAtBack(T newData)
+    void insertAtBack(T newData)
     {
-        Node* nodeToAdd = new Node(newData);
-        if (!isListEmpty())
-        {
-            listHead = nodeToAdd;
-            size++; 
-            return listHead; 
-        }
-        
-        Node* tempNodePtr = listHead;  
-        while(tempNodePtr->ptrNext)
-        {
-            tempNodePtr = tempNodePtr->ptrNext; 
-            // after this tempNodePtr should be the last node in the list 
-        }        
-        
-        tempNodePtr->ptrNext = nodeToAdd; // connecting the next pointer
-        nodeToAdd->ptrPrev = tempNodePtr; // connecting the previous pointer
-        size++; 
-        return nodeToAdd; 
+        insertAtBackHelper(newData);
     }
-
-    Node* insertAtFront(T newData)
+    
+    void insertAtFront(T newData)
     {
-        Node* nodeToAdd = new Node(newData);
-        if (!isListEmpty())
-        {
-            listHead = nodeToAdd;
-            size++;
-            return listHead; 
-        }
-        nodeToAdd->ptrNext = listHead; 
-        listHead = nodeToAdd; 
-        size++;
-        return nodeToAdd; 
+        insertAtFrontHelper(newData);
     }
+    
 
     Node* deleteAtFront()
     {
@@ -125,9 +139,8 @@ public:
             tempNodePtr = tempNodePtr->ptrNext;
         }
         Node* tempPrevPtr = tempNodePtr; // to keep track of the last node in the list 
-        //cout << "Temp ptr is " << tempPrevPtr->data << endl; 
+        //cout << "Temp ptr is " << tempPrevPtr->data << endl; // debug print 
         delete tempNodePtr;
-        //tempPrevPtr->ptrNext = nullptr; 
         size--; 
         return tempPrevPtr; 
     }

@@ -13,21 +13,22 @@ public:
         gameList.printList();
     }
 
-    void deleteFront(){
+    void deleteFront()
+    {
         gameList.deleteAtFront();
     }
 
     void deleteBack()
     {
         gameList.deleteAtBack();
-
     }
 
-    void deleteSpec(){
+    void deleteSpec()
+    {
         gameList.deleteSpecificNode();
     }
 
-    
+    // the main game list populated with commands file
     LinkedList<Data<string, string> > gameList;
 
     // Sets up environment for the game to begin 
@@ -41,6 +42,7 @@ public:
         std::ifstream inputStream("commands.csv");
         gameList = importQuestionsFromFile(inputStream);
     }
+
 
    
 
